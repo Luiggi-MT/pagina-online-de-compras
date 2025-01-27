@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Producto</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Tienda en Línea</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/carrito">Carrito</a></li>
+        <li class="nav-item"><a class="nav-link" href="/usuarios/logout">Cerrar sesión</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Editar Producto</h1>
+
+    <form action="/producto/{{ producto.id }}/editar" method="POST">
+      <div class="form-group">
+        <label for="title">Título del Producto</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ producto.title }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Precio</label>
+        <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ producto.price }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required>{{ producto.description }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoría</label>
+        <select class="form-control" id="category" name="category" required>
+          <option value="electronics" {% if producto.category == 'electronics' %}selected{% endif %}>Electrónica</option>
+          <option value="men's clothing" {% if producto.category == "men's clothing" %}selected{% endif %}>Ropa de Hombre</option>
+          <option value="women's clothing" {% if producto.category == "women's clothing" %}selected{% endif %}>Ropa de Mujer</option>
+          <option value="jewelery" {% if producto.category == 'jewelery' %}selected{% endif %}>Joyería</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="image">URL de la Imagen</label>
+        <input type="text" class="form-control" id="image" name="image" value="{{ producto.image }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="rating">Calificación</label>
+        <input type="number" step="0.1" class="form-control" id="rating" name="rating" value="{{ producto.rating.rate }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="ratingCount">Número de Opiniones</label>
+        <input type="number" class="form-control" id="ratingCount" name="ratingCount" value="{{ producto.rating.count }}" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      <a href="/producto/{{ producto.id }}" class="btn btn-secondary ml-2">Cancelar</a>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

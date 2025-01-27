@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenido a Tienda en Línea</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Tienda en Línea</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/electronics">Electrónica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/men's clothing">Ropa de Hombre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/women's clothing">Ropa de Mujer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/jewelery">Joyería</a>
+        </li>
+        <li class="nav-item">
+          <a href="/carrito" class="nav-link {% if carritoVacio %} disabled {% endif %}">
+            <i class="fas fa-shopping-cart"></i>
+            {% if session.cart.length > 0 %}
+              <span class="badge badge-danger">{{ session.cart.length }}</span>
+            {% endif %}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/usuarios/logout">Cerrar Sesión</a>
+        </li>
+      </ul>
+      <!-- Search Form -->
+      <form class="form-inline my-2 my-lg-0 ml-3" action="/buscar" method="GET">
+        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Buscar artículos" aria-label="Buscar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Welcome Section -->
+  <div class="container my-5">
+    <h1 class="text-center mb-4">¡Bienvenido a Tienda en Línea!</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Hola, {{ usuario.name.firstname }} {{ usuario.name.lastname }}</h5>
+            <p class="card-text">Gracias por unirte a nuestra tienda en línea. A continuación, puedes explorar nuestros productos y realizar tus compras.</p>
+            <p class="card-text">Correo electrónico: {{ usuario.email }}</p>
+            <p class="card-text">Teléfono: {{ usuario.phone }}</p>
+            <a href="/" class="btn btn-primary">Ir a la tienda</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3">
+      © 2024 Tienda en Línea | Todos los derechos reservados
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@api = http://localhost:8000
+
+GET {{api}}
+
+###
+GET {{api}}/categoria/electronics/
+
+###
+GET {{api}}/carrito
+
+### Portada
+GET {{api}}/portada

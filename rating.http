@@ -1,0 +1,22 @@
+@api = http://localhost:8000
+
+### Obtener todos los ratings (paginado)
+GET {{api}}/api/ratings?desde=4&hasta=5
+
+###
+
+### Obtener el rating de un producto específico
+GET {{api}}/api/ratings/6736f9e4b830574676497fad
+
+###
+
+### Modificar el rating de un producto
+PUT {{api}}/api/ratings/6736f9e4b830574676497fad
+Content-Type: application/json
+
+{
+  "rate": 4.8,
+  "count": 125
+}
+###
+GET {{api}}/api/ratings/6736f9e4b830574676497fab

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda en Línea</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Tienda en Línea</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/electronics">Electrónica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/men's clothing">Ropa de Hombre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/women's clothing">Ropa de Mujer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categoria/jewelery">Joyería</a>
+        </li>
+        <li class="nav-item">
+          <a href="/carrito" class="nav-link {% if carritoVacio %} disabled {% endif %}">
+            <i class="fas fa-shopping-cart"></i>
+            {% if session.cart.length > 0 %}
+              <span class="badge badge-danger">{{ session.cart.length }}</span>
+            {% endif %}
+          </a>
+        </li>
+      <!-- Condicional para mostrar iniciar sesión o cerrar sesión -->
+      {% if not usuario %}
+      <li class="nav-item">
+        <a class="nav-link" href="/usuarios/login">Iniciar sesión</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/usuarios/logout">Cerrar sesión</a>
+      </li>
+      {% endif %}
+    </ul>
+      <!-- Search Form -->
+      <form class="form-inline my-2 my-lg-0 ml-3" action="/buscar" method="GET">
+        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Buscar artículos" aria-label="Buscar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Featured Products Section -->
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Productos</h1>
+    <div class="row">
+      <!-- Product Card Example -->
+      {% for producto in productos %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="{{ producto.image | safe }}" class="card-img-top" alt="{{ producto.title | safe }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ producto.title | safe }}</h5>
+              <p class="text-primary">Precio: ${{ producto.price | safe }}</p>
+              <!-- Form for adding product to cart -->
+              <form action="/agregar-carrito" method="POST">
+                <input type="hidden" name="id" value="{{ producto.id }}">
+                <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+              </form>
+              <a href="/producto/{{ producto.id }}" class="btn btn-secondary">Ver Detalles</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3">
+      © 2024 Tienda en Línea | Todos los derechos reservados
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

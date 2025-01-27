@@ -1,0 +1,44 @@
+/* Estrella completa */
+.filled {
+  color: orange; /* Estrellas llenas de color naranja */
+}
+
+/* Estrella vacía */
+.empty {
+  color: #ddd; /* Estrellas vacías de color gris */
+}
+
+/* Estrella parcial */
+.partial {
+  position: relative;
+  color: #ddd; /* Color base (vacío) */
+}
+
+.star.partial::after {
+  content: "★"; /* El carácter de la estrella */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; /* Controla el ancho de la estrella parcial (mitad de la estrella) */
+  color: orange; /* Color de la parte "rellena" (naranja) */
+  overflow: hidden; /* Esconde cualquier parte que no sea visible */
+}
+
+/* Estilo cuando se pasa el mouse sobre las estrellas */
+.stars-container:hover .star {
+  color: #ffcc00; /* Color cuando el usuario pasa el ratón sobre las estrellas */
+}
+
+/* Contenedor de las estrellas */
+.stars-container {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+/* Estilo básico de las estrellas */
+.star {
+  font-size: 1.5rem; /* Tamaño de las estrellas */
+  color: #ddd; /* Color por defecto (vacío) */
+  cursor: pointer;
+  transition: color 0.3s ease; /* Transición suave para el cambio de color */
+}

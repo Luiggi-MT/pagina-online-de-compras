@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ producto.title }} - Detalles</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Vincular el archivo CSS -->
+  <link rel="stylesheet" href="/public/css/styless.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Tienda en Línea</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <!-- Menú de navegación aquí -->
+        {% if not usuario %}
+          <li class="nav-item"><a class="nav-link" href="/usuarios/login">Iniciar sesión</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="/usuarios/logout">Cerrar sesión</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Sección de detalles del producto -->
+  <div class="container my-5">
+    <div class="row">
+      <!-- Imagen del producto -->
+      <div class="col-md-6">
+        <img src="{{ producto.image }}" alt="{{ producto.title }}" class="img-fluid rounded">
+      </div>
+
+      <!-- Información del producto -->
+      <div class="col-md-6">
+        <h1>{{ producto.title }}</h1>
+        <p class="text-muted">Categoría: <strong>{{ producto.category }}</strong></p>
+        <h3 class="text-primary">Precio: ${{ producto.price }}</h3>
+        
+        <!-- Calificación -->
+        <div class="mb-3">
+          <h5>Calificación:</h5>
+            <span class="stars" data-_id="{{producto._id}}"> 
+              <span class="fa fa-star" data-_id="{{producto._id}}"></span>
+              <span class="fa fa-star" data-_id="{{producto._id}}" ></span>
+              <span class="fa fa-star" data-_id="{{producto._id}}" ></span>
+              <span class="fa fa-star" data-_id="{{producto._id}}"></span>
+              <span class="fa fa-star" data-_id="{{producto._id}}"></span>
+            </span>
+            <small class="text-muted"> {{producto.rating.rate.toFixed(2)}} de ({{ producto.rating.count }} opiniones)</small>
+        </div>
+
+        <p>{{ producto.description }}</p>
+
+        <!-- Botones de acción -->
+        <form action="/agregar-carrito" method="POST" class="d-inline-block">
+          <input type="hidden" name="id" value="{{ producto.id }}">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-cart-plus"></i> Añadir al Carrito
+          </button>
+        </form>
+        <a href="/" class="btn btn-secondary ml-2">
+          <i class="fas fa-arrow-left"></i> Volver a la tienda
+        </a>
+
+        <!-- Solo si el usuario es admin -->
+        {% if usuario and isAdmin %}
+          <a href="/producto/{{ producto.id }}/editar" class="btn btn-warning mt-3">
+            <i class="fas fa-edit"></i> Editar Producto
+          </a>
+          <form action="/producto/{{ producto.id }}/eliminar" method="POST" class="d-inline-block mt-3">
+            <button type="submit" class="btn btn-danger">
+              <i class="fas fa-trash-alt"></i> Eliminar Producto
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3">
+      © 2024 Tienda en Línea | Todos los derechos reservados
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="/public/doom/rating.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
